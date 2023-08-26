@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "893833966941",
+    "firebase_url": "https://mediatube-9051d-default-rtdb.firebaseio.com",
+    "project_id": "mediatube-9051d",
+    "storage_bucket": "mediatube-9051d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893833966941:android:0b41244c35fb412955e4b4",
+        "android_client_info": {
+          "package_name": "com.freefilms.online.cinema"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893833966941-e1dmbv62iavcksahq59pqvgt3jg8kph0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freefilms.online.cinema",
+            "certificate_hash": "0a71b4aeae27c0118c637ea3065c05364ea50b97"
+          }
+        },
+        {
+          "client_id": "893833966941-vg230gbttf36nsm86kv5lhd6qk2ige29.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freefilms.online.cinema",
+            "certificate_hash": "d15c5987c818daf2397401771b8cd900240a7e75"
+          }
+        },
+        {
+          "client_id": "893833966941-5a20d45rjdd5ebn0nlvbavvti53mmm2a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPkHGzFHZuPu2wM0-Gcjrp-jAehJ30Rgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893833966941-5a20d45rjdd5ebn0nlvbavvti53mmm2a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

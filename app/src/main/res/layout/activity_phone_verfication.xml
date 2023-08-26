@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#171F28E5"
+    tools:context=".PhoneVerfication">
+    <ImageView
+        android:layout_width="270dp"
+        android:layout_height="210dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/login_header_img"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text="Enter Phone Number"
+        android:textAlignment="center"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="27sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+
+        android:text="We will send a code (via SMS text message) to your phone number"
+        android:textAlignment="center"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="19sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_bg"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            app:ccp_clickable="true"
+            app:ccp_countryPreference="Pakistan"
+            android:textColor="?android:textColorPrimary"
+            app:ccp_internationalFormattingOnly="true"
+            app:ccp_showNameCode="true"
+            app:ccp_autoDetectCountry="true"
+
+            app:ccp_textSize="16sp" />
+
+        <EditText
+            android:id="@+id/phoneEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+
+            android:hint="3012345678"
+            android:inputType="phone"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+    <!--Edittext for getting otp from user-->
+   <!-- <LinearLayout
+        android:id="@+id/otpcontainer"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_bg"
+            android:elevation="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+        <EditText
+            android:id="@+id/idEdtOtp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:hint="Enter OTP"
+            android:textAlignment="center"
+            android:textColorHint="@color/black"
+            android:importantForAutofill="yesExcludeDescendants"
+            android:inputType="phone" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/idBtnVerify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idEdtOtp"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:text="Verify OTP"
+            android:textAllCaps="false" />
+    </LinearLayout> -->
+    <Button
+        android:id="@+id/verifyBtn"
+        android:layout_width="155dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_bg"
+        android:elevation="10dp"
+        android:text="Verify"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+</LinearLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#171F28E5"
+    tools:context=".EasyPaisa">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ONLINE CINEMA"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/DetailThumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="25dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/paymentbg" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pay with EasyPaisa"
+        android:gravity="center"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_marginTop="15dp"
+        android:id="@+id/phoneEdit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/edit_bg_selector"
+        android:elevation="4dp"
+        android:hint="Phone No"
+        android:inputType="phone"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="#707070"
+        android:textSize="14sp" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:visibility="gone" />
+    <Button
+        android:id="@+id/payEasypaisaBtn"
+        android:layout_width="155dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_bg"
+        android:elevation="10dp"
+        android:text="Pay"
+        android:textColor="#fff"
+        android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

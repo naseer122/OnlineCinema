@@ -1,0 +1,33 @@
+<!-- dialog_playback_quality.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Add your playback quality options here -->
+    <!-- You can use RadioButtons, CheckBoxes, or any other views to display the options -->
+    <!-- For example, you can use RadioButtons for single-choice quality selection -->
+<RadioGroup
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/radioGroupQuality">
+    <RadioButton
+        android:id="@+id/radioQualityLow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Low Quality" />
+
+    <RadioButton
+        android:id="@+id/radioQualityMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medium Quality" />
+
+    <RadioButton
+        android:id="@+id/radioQualityHigh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="High Quality" />
+</RadioGroup>
+</LinearLayout>

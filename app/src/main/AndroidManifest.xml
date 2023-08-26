@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/iconapp"
+        android:label="@string/app_name"
+        android:name=".MyApp"
+        android:roundIcon="@drawable/iconapp"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.OnlineCinema"
+        tools:targetApi="31">
+        <activity
+            android:name=".ContactUs"
+            android:exported="false" />
+        <activity
+            android:name=".Songs"
+            android:exported="false" />
+        <activity
+            android:name=".BehindtheScene"
+            android:exported="false" />
+
+        <service android:name=".TimerService" />
+
+        <activity
+            android:name=".JazzCash"
+            android:exported="false" />
+        <activity
+            android:name=".Register"
+            android:exported="false" />
+        <activity
+            android:name=".PhoneVerfication"
+            android:exported="false" />
+        <activity
+            android:name=".OtpVerfication"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="applovin.sdk.key"
+            android:value="4WN5nDau32rqcpnquusoIaTrqrOtGcUwDw1T_Q8ZmfuH4XnTP8ubAsqtFuI3oecp0sNVsTTw8khnnsRk83iTL0" />
+
+        <activity
+            android:name=".VideoPlay"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".EasyPaisa"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentCheckPoint"
+            android:exported="false" />
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

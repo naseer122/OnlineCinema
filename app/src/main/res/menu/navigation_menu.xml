@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:title="Songs"
+    android:id="@+id/songs"
+    android:iconTint="@color/white"
+    android:icon="@drawable/baseline_video_camera_front_24"
+    />
+    <item android:title="Behind The Scenes"
+        android:iconTint="@color/white"
+        android:icon="@drawable/baseline_video_camera_front_24"
+        android:id="@+id/BTH"/>
+
+    <item android:id="@+id/share"
+        android:iconTint="@color/white"
+        android:icon="@drawable/baseline_share_24"
+        android:title="Share"/>
+    <item android:title="Public Forum"
+        android:iconTint="@color/white"
+        android:icon="@drawable/baseline_star_rate_24"
+        android:id="@+id/contact"/>
+    <item android:title="Rate Us"
+        android:iconTint="@color/white"
+        android:icon="@drawable/baseline_star_rate_24"
+        android:id="@+id/rateus"/>
+</menu>
