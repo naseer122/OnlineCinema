@@ -3,6 +3,8 @@ package com.example.onlinecinema;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -11,6 +13,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,6 +21,8 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,9 +69,9 @@ Button Payeasy;
 
         String number;
         EditText PhoneEd;
-FirebaseAuth auth;
+
     ProgressBar progressBar;
-    String price,duration,filmurl,filmname ;
+    String price,duration,filmurl,filmname,film360,film520,film720,film1080 ;
 
 
     //Timer
@@ -86,7 +91,11 @@ String finalprice;
         price = getIntent().getStringExtra("price");
         String pric[] = price.split("Rs");
         number = getIntent().getStringExtra("number");
-        auth = FirebaseAuth.getInstance();
+        film360 = getIntent().getStringExtra("360p");
+        film520 = getIntent().getStringExtra("560p");
+        film720 = getIntent().getStringExtra("780p");
+        film1080 = getIntent().getStringExtra("1080p");
+
         finalprice = pric[1];
         PhoneEd = findViewById(R.id.phoneEdit);
         progressBar = findViewById(R.id.progressBar);
@@ -375,12 +384,11 @@ private void start(){      // Retrieve the remaining time from SharedPreferences
     }
 
     private void savedata(String transcationid, String transactiontime, String easypaisanumber) {
-        String Phone = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber();
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("purchases");
        // String push = String.valueOf(reference.push());
         HashMap<String,Object> map = new HashMap<>();
-        map.put("uid",auth.getCurrentUser().getUid());
-        map.put("accountphone",Phone);
+        map.put("accountphone",number);
         map.put("tranid",transcationid);
         map.put("trantime",transactiontime);
         map.put("easypaisanumber",easypaisanumber);
@@ -393,29 +401,77 @@ private void start(){      // Retrieve the remaining time from SharedPreferences
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    startActivity(new Intent(EasyPaisa.this,VideoPlay.class).putExtra("filmurl",filmurl).putExtra("number",number)
-                            .putExtra("filmname",filmname));
-                    // Start the timer service after the purchase is successful
-                    // Save the remaining time to SharedPreferences
-                    //     long remainingTimeMillis = sharedPreferences.getLong(REMAINING_TIME_KEY, 0);
-                    // Save the remaining time to SharedPreferences using SharedPreferencesHelper
-                    String firebaseTime = duration;
-                    String[] timeParts = firebaseTime.split(":");
-                    int hours = Integer.parseInt(timeParts[0]);
-                    int minutes = Integer.parseInt(timeParts[1]);
-                    int seconds = Integer.parseInt(timeParts[2]);
-                    //Toast.makeText(EasyPaisa.this, response.getString("transactionId"), Toast.LENGTH_SHORT).show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.dialog_resolution, null);
+// Create the AlertDialog.Builder
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(EasyPaisa.this);
+                    builder2.setView(dialogView)
+                            .setTitle("Select Resolution")
+                                    .setPositiveButton("Play", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            if (filmurl==null){
+                                                filmurl = film360;
+                                            }
+                                            startActivity(new Intent(EasyPaisa.this,VideoPlay.class).putExtra("filmurl",filmurl).putExtra("number",number)
+                                                    .putExtra("filmname",filmname)
+                                                    .putExtra("360p",film360).putExtra("560p",film520)
+                                                    .putExtra("780p",film720)
+                                                    .putExtra("1080p",film1080)
+                                                    .putExtra("Movietype","paid")
+                                                    .putExtra("number",number));
+                                            // Start the timer service after the purchase is successful
+                                            // Save the remaining time to SharedPreferences
+                                            //     long remainingTimeMillis = sharedPreferences.getLong(REMAINING_TIME_KEY, 0);
+                                            // Save the remaining time to SharedPreferences using SharedPreferencesHelper
+                                            String firebaseTime = duration;
+                                            String[] timeParts = firebaseTime.split(":");
+                                            int hours = Integer.parseInt(timeParts[0]);
+                                            int minutes = Integer.parseInt(timeParts[1]);
+                                            int seconds = Integer.parseInt(timeParts[2]);
+                                            //Toast.makeText(EasyPaisa.this, response.getString("transactionId"), Toast.LENGTH_SHORT).show();
 
 // Calculate the total time in milliseconds
-                    totalTimeMillis = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000) + (seconds * 1000);
+                                            totalTimeMillis = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000) + (seconds * 1000);
 
-                    SharedPreferencesHelper.saveRemainingTime(EasyPaisa.this, totalTimeMillis);
-                    SharedPreferencesHelper.saveFilmName(EasyPaisa.this,filmname);
+                                            SharedPreferencesHelper.saveRemainingTime(EasyPaisa.this, totalTimeMillis);
+                                            SharedPreferencesHelper.saveFilmName(EasyPaisa.this,filmname);
 
 // Start the timer service after the purchase is successful
-                    startService(new Intent(EasyPaisa.this, TimerService.class));
+                                            startService(new Intent(EasyPaisa.this, TimerService.class));
 
 
+                                        }
+                                    });
+                    // Set up radio buttons
+                    final RadioGroup radioGroup = dialogView.findViewById(R.id.radioGroup);
+                    final RadioButton radioButton520p = dialogView.findViewById(R.id.radioButton520p);
+                    final RadioButton radioButton720p = dialogView.findViewById(R.id.radioButton720p);
+                    final RadioButton radioButton1080p = dialogView.findViewById(R.id.radioButton1080p);
+                    final RadioButton radioButton360p = dialogView.findViewById(R.id.radioButton360p);
+                    // Set default selected radio button
+// Listen for radio button changes
+                    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            if (checkedId == R.id.radioButton520p) {
+                                filmurl = film520;
+
+                            } else if (checkedId == R.id.radioButton720p) {
+                                filmurl =film720;
+
+                            } else if (checkedId == R.id.radioButton1080p) {
+                                filmurl = film1080;
+
+                            } else if (checkedId== R.id.radioButton360p) {
+                                filmurl = film360;
+
+                            }
+
+                        }
+                    });
+                    AlertDialog dialog = builder2.create();
+                    dialog.show();
                 } else {
                     Toast.makeText(EasyPaisa.this, "Please try again", Toast.LENGTH_SHORT).show();
                 }

@@ -11,16 +11,16 @@
     android:paddingRight="15dp"
     android:paddingLeft="15dp">
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:paddingTop="4dp">-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="4dp">
 
-<!--        <ImageButton-->
-<!--            android:id="@id/exo_rew"-->
-<!--            style="@style/ExoMediaButton.Rewind" />-->
+      <ImageButton
+           android:id="@id/exo_rew"
+            style="@style/ExoMediaButton.Rewind" />
 
 <!--        <ImageButton-->
 <!--            android:id="@id/exo_play"-->
@@ -30,11 +30,11 @@
 <!--            android:id="@id/exo_pause"-->
 <!--            style="@style/ExoMediaButton.Pause" />-->
 
-<!--        <ImageButton-->
-<!--            android:id="@id/exo_ffwd"-->
-<!--            style="@style/ExoMediaButton.FastForward" />-->
+        <ImageButton
+            android:id="@id/exo_ffwd"
+            style="@style/ExoMediaButton.FastForward" />
 
-<!--    </LinearLayout>-->
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

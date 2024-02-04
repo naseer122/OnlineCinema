@@ -8,11 +8,21 @@ public class Messages {
     private String text;
     private long timestamp;
     private String userType;
-    private String userId;  // Add user ID
+    private String phone;  // Add user ID
     private String userName; // Add user name
     private String city;     // Add user city
     private String mobile;
     private String push;
+
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getPush() {
         return push;
@@ -26,15 +36,16 @@ public class Messages {
         // Default constructor required for Firebase
     }
 
-    public Messages(String text, long timestamp, String userId, String userName, String city, String mobile,String userType,String push) {
+    public Messages(String text, long timestamp, String userId, String userName, String city, String mobile,String userType,String push,String date) {
         this.text = text;
         this.timestamp = timestamp;
         this.userType = userType;
-        this.userId = userId;
+        this.phone = userId;
         this.userName = userName;
         this.city = city;
         this.mobile = mobile;
         this.push = push;
+        this.date = date;
     }
     public String getFormattedTimestamp() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
@@ -53,12 +64,12 @@ public class Messages {
         this.userType = userType;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getUserName() {

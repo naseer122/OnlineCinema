@@ -65,7 +65,7 @@
         <activity
             android:name=".VideoPlay"
             android:exported="false"
-            android:screenOrientation="landscape" />
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".EasyPaisa"
             android:exported="false" />

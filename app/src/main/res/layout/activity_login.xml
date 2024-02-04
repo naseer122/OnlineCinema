@@ -75,27 +75,15 @@
                 android:orientation="horizontal">
 
 
-
-                <com.hbb20.CountryCodePicker
-                    android:id="@+id/ccp2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    app:ccp_clickable="true"
-                    app:ccp_countryPreference="Pakistan"
-                    android:textColor="?android:textColorPrimary"
-                    app:ccp_internationalFormattingOnly="true"
-                    app:ccp_showNameCode="true"
-                    app:ccp_autoDetectCountry="true"
-                    app:ccp_textSize="16sp" />
-
                 <EditText
                     android:id="@+id/phoneEdit"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:hint="3012345678"
+                    android:hint="03012345678"
                     android:inputType="phone"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -103,44 +91,35 @@
             </LinearLayout>
 
 
-          <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/otpcontainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp">
-
 
                 <LinearLayout
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:orientation="vertical">
                     <LinearLayout
                         android:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginEnd="20dp"
                         android:background="@drawable/edit_bg"
+                        android:layout_margin="10dp"
                         android:elevation="4dp"
-                        android:gravity="center_vertical"
                         android:orientation="vertical"
                         >
                         <EditText
-                            android:id="@+id/idEdtOtp"
+                            android:id="@+id/PasswordEd"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:background="@android:color/transparent"
                             android:textColor="@color/black"
-                            android:hint="Enter OTP"
+
+                            android:hint="Enter Your Password"
                             android:textAlignment="center"
                             android:textColorHint="@color/black"
                             android:importantForAutofill="yesExcludeDescendants"
-                            android:inputType="phone" />
+                            android:inputType="textPassword" />
 
 
                     </LinearLayout>
@@ -148,7 +127,7 @@
 
                 </LinearLayout>
 
-            </RelativeLayout>
+
 
 
             <TextView
@@ -175,7 +154,19 @@
                 android:text="Log in"
                 android:textColor="#fff"
                 android:textSize="16sp" />
-
+            <Button
+                android:visibility="gone"
+                android:id="@+id/submit"
+                android:layout_width="155dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_bg"
+                android:elevation="10dp"
+                android:text="Log in"
+                android:textColor="#fff"
+                android:textSize="16sp" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

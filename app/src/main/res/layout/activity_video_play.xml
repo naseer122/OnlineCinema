@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.exoplayer2.ui.StyledPlayerView
         android:id="@+id/playerView"
         android:keepScreenOn="true"
         app:use_controller="true"
-        android:background="@android:color/black"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="350dp"
         app:resize_mode="fixed_width"
-        android:layout_weight="1"
+        app:show_buffering="always"
+        app:controller_layout_id="@layout/exo_playback_control_view"
         >
 
         <TextView
@@ -24,8 +25,52 @@
 
             />
     </com.google.android.exoplayer2.ui.StyledPlayerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:id="@+id/commentsView"
+        android:orientation="vertical"
+        android:visibility="visible">
 
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/recycler_viewvideo"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
+            <EditText
+                android:id="@+id/message_edit_text"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:hint="Type your message..."
+                android:textColorHint="@color/white"
+                android:layout_margin="8dp"
+                android:imeOptions="actionSend"
+                android:inputType="textMultiLine"/>
+            <ImageView
+                android:id="@+id/send_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/baseline_send_24"
+                android:layout_below="@id/recycler_view"
+                android:layout_toRightOf="@id/message_edit_text"
+                app:tint="@color/white" />
+        </LinearLayout>
     </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
 

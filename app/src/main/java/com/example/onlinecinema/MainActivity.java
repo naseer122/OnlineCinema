@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     String packagename = getPackageName();
                     Intent shareintent = new Intent();
                     shareintent.setAction(Intent.ACTION_SEND);
-                    shareintent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/"+packagename);
+                    shareintent.putExtra(Intent.EXTRA_TEXT, "https://bit.ly/onlinefreefilms");
                     shareintent.setType("text/plain");
                     startActivity(Intent.createChooser(shareintent, "share Via"));
                     // when u rate your app

@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:text="Enter Phone Number"
+        android:text="Verfiy Your Account"
         android:textAlignment="center"
         android:textColor="?android:textColorPrimary"
         android:textSize="27sp" />
@@ -32,50 +32,12 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
 
-        android:text="We will send a code (via SMS text message) to your phone number"
+        android:text="Please Click on WhatsApp ICON to Activate your Account"
         android:textAlignment="center"
         android:textColor="?android:textColorPrimary"
         android:textSize="19sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/edit_bg"
-        android:elevation="4dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
 
-        <com.hbb20.CountryCodePicker
-            android:id="@+id/ccp2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            app:ccp_clickable="true"
-            app:ccp_countryPreference="Pakistan"
-            android:textColor="?android:textColorPrimary"
-            app:ccp_internationalFormattingOnly="true"
-            app:ccp_showNameCode="true"
-            app:ccp_autoDetectCountry="true"
-
-            app:ccp_textSize="16sp" />
-
-        <EditText
-            android:id="@+id/phoneEdit"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-
-            android:hint="3012345678"
-            android:inputType="phone"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </LinearLayout>
     <!--Edittext for getting otp from user-->
    <!-- <LinearLayout
         android:id="@+id/otpcontainer"
@@ -118,16 +80,11 @@
             android:text="Verify OTP"
             android:textAllCaps="false" />
     </LinearLayout> -->
-    <Button
-        android:id="@+id/verifyBtn"
-        android:layout_width="155dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="45dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/btn_bg"
-        android:elevation="10dp"
-        android:text="Verify"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/contact_whatsapp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_whatsapp_square" />
 </LinearLayout>

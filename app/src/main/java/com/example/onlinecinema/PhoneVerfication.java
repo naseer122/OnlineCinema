@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -43,7 +45,7 @@ public class PhoneVerfication extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verfication);
-        ccp = findViewById(R.id.ccp2);
+       // ccp = findViewById(R.id.ccp2);
         numberEdit = findViewById(R.id.phoneEdit);
        // OtpContainer = findViewById(R.id.otpcontainer);
       //  edtOTP = findViewById(R.id.idEdtOtp);
@@ -51,41 +53,68 @@ public class PhoneVerfication extends AppCompatActivity {
         // of our FirebaseAuth.
         mAuth = FirebaseAuth.getInstance();
        // verifyOTPBtn = findViewById(R.id.idBtnVerify);
-        findViewById(R.id.verifyBtn).setOnClickListener(new View.OnClickListener() {
+//        findViewById(R.id.verifyBtn).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //Checking if number is provided or not
+//                if (numberEdit.getText().toString().isEmpty()) {
+//                    numberEdit.setError("Enter Your Number First");
+//                    return;
+//                }
+//
+//                String text = ccp.getSelectedCountryCodeWithPlus();
+//                String number = text + numberEdit.getText().toString();
+//                number = number.replaceAll("[\\[\\](){}]", "");
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+//                builder.setTitle("Confirm");
+//                builder.setMessage("Are you sure you want to send SMS on " + number);
+//                finalNumber = number;
+//                builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//
+//                        sendVerificationCode(finalNumber);
+//                        numberEdit.setEnabled(false);
+//                        findViewById(R.id.verifyBtn).setVisibility(View.GONE);
+//                        //OtpContainer.setVisibility(View.VISIBLE);
+//                    }
+//                });
+//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                builder.show();
+//            }
+//        });
+        findViewById(R.id.contact_whatsapp).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //Checking if number is provided or not
-                if (numberEdit.getText().toString().isEmpty()) {
-                    numberEdit.setError("Enter Your Number First");
-                    return;
+            public void onClick(View v) {
+                String accountSuspend = getIntent().getStringExtra("AccountBan");
+                String toNumber = "+923024443676";
+                String url = "https://api.whatsapp.com/send?phone=" + toNumber;
+                try {
+                    PackageManager pm = v.getContext().getPackageManager();
+                    pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+                    Intent i = new Intent(Intent.ACTION_SENDTO);
+                    if (accountSuspend.equals("BANACCOUNT")){
+                        i.putExtra("sms_body","Account Banned");
+                    } else {
+                        i.putExtra("sms_body","Account Verfication");
+                    }
+
+                   i.setData(Uri.parse("smsto:" + "+923024443676"));
+                    //i.setData(Uri.parse(url));
+                    v.getContext().startActivity(i);
+                    finish();
+                } catch (PackageManager.NameNotFoundException e) {
+                    v.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    finish();
                 }
 
-                String text = ccp.getSelectedCountryCodeWithPlus();
-                String number = text + numberEdit.getText().toString();
-                number = number.replaceAll("[\\[\\](){}]", "");
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("Confirm");
-                builder.setMessage("Are you sure you want to send SMS on " + number);
-                finalNumber = number;
-                builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-
-                        sendVerificationCode(finalNumber);
-                        numberEdit.setEnabled(false);
-                        findViewById(R.id.verifyBtn).setVisibility(View.GONE);
-                        //OtpContainer.setVisibility(View.VISIBLE);
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
             }
         });
 

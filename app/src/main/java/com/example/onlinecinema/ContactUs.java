@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -27,8 +28,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ContactUs extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -54,12 +59,15 @@ public class ContactUs extends AppCompatActivity {
         // Initialize Firebase and get a reference to the messages
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         messagesRef = database.getReference("forum_messages");
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        uid = auth.getCurrentUser().getUid();
-        reference  = FirebaseDatabase.getInstance().getReference("users");
+
+        SharedPreferences preferences = getSharedPreferences("LoginPref",MODE_PRIVATE);
+        String login = preferences.getString("login","");
+        String phone = preferences.getString("phone","");
+        uid = phone;
+        reference  = FirebaseDatabase.getInstance().getReference("user");
         loaduserdata();
         // Load messages from Firebase Realtime Database
-       // loadMessages();
+       loadMessages();
         adapter = new ChatAdapter(messageList);
         recyclerView.setAdapter(adapter);
         // Find the views
@@ -107,6 +115,7 @@ public class ContactUs extends AppCompatActivity {
                     Name = snapshot.child("name").getValue(String.class);
                     mobile = snapshot.child("phone").getValue(String.class);
                     city = snapshot.child("city").getValue(String.class);
+
                 }
             }
 
@@ -142,7 +151,11 @@ public class ContactUs extends AppCompatActivity {
         long timestamp = System.currentTimeMillis();
 
         String push = messagesRef.push().getKey();
-        Messages message = new Messages(text, timestamp, userId, userName, city, mobile, userType,push);
+        Calendar calendar = Calendar.getInstance();
+        Date currentDateAndTime = calendar.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDateAndTime);
+        Messages message = new Messages(text, timestamp, userId, userName, city, mobile, userType,push,formattedDate);
         messagesRef.child(push).setValue(message);
     }
     // Function to load messages from Firebase Realtime Database
@@ -196,29 +209,4 @@ public class ContactUs extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        messageList.clear();
-        messagesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                        Messages message = snapshot1.getValue(Messages.class);
-                        messageList.add(0,message);
-                        adapter.notifyDataSetChanged();
-                    }
-                }
-                adapter = new ChatAdapter(messageList);
-                recyclerView.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
-
-            }
-        });
-    }
 }

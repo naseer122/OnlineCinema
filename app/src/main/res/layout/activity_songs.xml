@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Songs"
+                android:text="Songs (Online Cinema)"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

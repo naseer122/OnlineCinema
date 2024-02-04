@@ -7,14 +7,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +58,7 @@ int Fprice;
 
     private SharedPreferences sharedPreferences;
     String number;
-    FirebaseAuth auth;
+
     private static final String REMAINING_TIME_KEY = "remaining_time";
 
     private TextView timerTextView;
@@ -62,10 +69,11 @@ int Fprice;
 
     String price;
     String duration;
-    String filmurl;
+    String filmurl ,film360,film520,film720,film1080;
     String filmname ;
 
     private BillingClient billingClient;
+    SharedPreferences sharedPreferences1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +85,32 @@ int Fprice;
         duration = getIntent().getStringExtra("extraduration");
         filmurl = getIntent().getStringExtra("filmurl");
         filmname = getIntent().getStringExtra("filmname");
-        auth = FirebaseAuth.getInstance();
+        film360 = getIntent().getStringExtra("360p");
+        film520 = getIntent().getStringExtra("560p");
+        film720 = getIntent().getStringExtra("780p");
+        film1080 = getIntent().getStringExtra("1080p");
+        sharedPreferences1 = getSharedPreferences("LoginPref",MODE_PRIVATE);
         number = getIntent().getStringExtra("number");
+        findViewById(R.id.contact_whatsapp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String toNumber = "+923024443676";
+                String url = "https://api.whatsapp.com/send?phone=" + toNumber;
+                try {
+                    PackageManager pm = v.getContext().getPackageManager();
+                    pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.putExtra(Intent.EXTRA_TEXT,"Payment ISSUE");
+                    i.setData(Uri.parse(url));
+                    v.getContext().startActivity(i);
+                } catch (PackageManager.NameNotFoundException e) {
+                    v.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                }
+
+            }
+        });
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Initialize the BillingClient
         // Start the timer immediately
@@ -93,7 +125,11 @@ int Fprice;
             public void onClick(View view) {
                 startActivity(new Intent(PaymentCheckPoint.this,EasyPaisa.class).putExtra("price",price).
                         putExtra("extraduration",duration).putExtra("filmurl",filmurl)
-                        .putExtra("filmname",filmname));
+                        .putExtra("filmname",filmname).putExtra("360p",film360).putExtra("560p",film520)
+                        .putExtra("780p",film720)
+                        .putExtra("1080p",film1080).
+                        putExtra("Movietype","paid")
+                        .putExtra("number",number));
                 finish();
             }
         });
@@ -145,7 +181,7 @@ int Fprice;
                     // Launch the purchase flow
                     // Get the SkuDetails for the product
                     SkuDetails skuDetails = skuDetailsList.get(0);
-
+             
                     // Extract the price from SkuDetails and store it in a variable
                     int priceInMicros = (int) skuDetails.getPriceAmountMicros();
                     Fprice = priceInMicros / 1000000; // Convert from micros to regular currency
@@ -304,10 +340,8 @@ int Fprice;
 // Format the date and time as "02/11/2022 09:48AM"
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.US);
         String formattedDateTime = sdf.format(currentDate);
-        String Phone = Objects.requireNonNull(auth.getCurrentUser()).getPhoneNumber();
         HashMap<String,Object> map = new HashMap<>();
-        map.put("uid",auth.getCurrentUser().getUid());
-        map.put("accountphone",Phone);
+        map.put("accountphone",number);
         map.put("tranid",purchaseToken);
         map.put("trantime",formattedDateTime);
         map.put("easypaisanumber","GOOGLE PAY BILLING");
@@ -321,26 +355,76 @@ int Fprice;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    startActivity(new Intent(PaymentCheckPoint.this,VideoPlay.class).putExtra("filmurl",filmurl).putExtra("number",number)
-                            .putExtra("filmname",filmname));
-                    finish();
-                    // Start the timer service after the purchase is successful
-                    // Save the remaining time to SharedPreferences using SharedPreferencesHelper
-                    String firebaseTime = duration;
-                    String[] timeParts = firebaseTime.split(":");
-                    int hours = Integer.parseInt(timeParts[0]);
-                    int minutes = Integer.parseInt(timeParts[1]);
-                    int seconds = Integer.parseInt(timeParts[2]);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.dialog_resolution, null);
+// Create the AlertDialog.Builder
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(PaymentCheckPoint.this);
+                    builder2.setView(dialogView)
+                            .setTitle("Select Resolution")
+                                    .setPositiveButton("play", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            if (filmurl==null){
+                                                filmurl = film360;
+                                            }
+                                            startActivity(new Intent(PaymentCheckPoint.this,VideoPlay.class).
+                                                    putExtra("filmurl",filmurl).putExtra("number",number)
+                                                    .putExtra("filmname",filmname).
+                                                    putExtra("360p",film360).putExtra("560p",film520)
+                                                    .putExtra("780p",film720)
+                                                    .putExtra("1080p",film1080)
+                                                    .putExtra("Movietype","paid"));
+                                            finish();
+                                            // Start the timer service after the purchase is successful
+                                            // Save the remaining time to SharedPreferences using SharedPreferencesHelper
+                                            String firebaseTime = duration;
+                                            String[] timeParts = firebaseTime.split(":");
+                                            int hours = Integer.parseInt(timeParts[0]);
+                                            int minutes = Integer.parseInt(timeParts[1]);
+                                            int seconds = Integer.parseInt(timeParts[2]);
 
 // Calculate the total time in milliseconds
-                    totalTimeMillis = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000) + (seconds * 1000);
+                                            totalTimeMillis = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000) + (seconds * 1000);
 
-                    SharedPreferencesHelper.saveRemainingTime(PaymentCheckPoint.this, totalTimeMillis);
-                    SharedPreferencesHelper.saveFilmName(PaymentCheckPoint.this,filmname);
+                                            SharedPreferencesHelper.saveRemainingTime(PaymentCheckPoint.this, totalTimeMillis);
+                                            SharedPreferencesHelper.saveFilmName(PaymentCheckPoint.this,filmname);
+                                            Toast.makeText(PaymentCheckPoint.this, filmname, Toast.LENGTH_SHORT).show();
 
 // Start the timer service after the purchase is successful
-                    startService(new Intent(PaymentCheckPoint.this, TimerService.class));
+                                            startService(new Intent(PaymentCheckPoint.this, TimerService.class));
 
+
+                                        }
+                                    });
+                    // Set up radio buttons
+                    final RadioGroup radioGroup = dialogView.findViewById(R.id.radioGroup);
+                    final RadioButton radioButton520p = dialogView.findViewById(R.id.radioButton520p);
+                    final RadioButton radioButton720p = dialogView.findViewById(R.id.radioButton720p);
+                    final RadioButton radioButton1080p = dialogView.findViewById(R.id.radioButton1080p);
+                    final RadioButton radioButton360p = dialogView.findViewById(R.id.radioButton360p);
+                    // Set default selected radio button
+// Listen for radio button changes
+                    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            if (checkedId == R.id.radioButton520p) {
+                                filmurl = film520;
+
+                            } else if (checkedId == R.id.radioButton720p) {
+                                filmurl =film720;
+
+                            } else if (checkedId == R.id.radioButton1080p) {
+                                filmurl = film1080;
+
+                            } else if (checkedId== R.id.radioButton360p) {
+                                filmurl = film360;
+
+                            }
+
+                        }
+                    });
+                    AlertDialog dialog = builder2.create();
+                    dialog.show();
 
                 } else {
                     Toast.makeText(PaymentCheckPoint.this, "Please try again", Toast.LENGTH_SHORT).show();

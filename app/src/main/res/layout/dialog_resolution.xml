@@ -1,0 +1,36 @@
+<!-- res/layout/dialog_resolution.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/radioButton360p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="360p" />
+        <RadioButton
+            android:id="@+id/radioButton520p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="520p" />
+
+        <RadioButton
+            android:id="@+id/radioButton720p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="720p" />
+
+        <RadioButton
+            android:id="@+id/radioButton1080p"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1080p" />
+    </RadioGroup>
+</LinearLayout>

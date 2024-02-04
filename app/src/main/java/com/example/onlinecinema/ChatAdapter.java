@@ -50,7 +50,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         public void bindMessage(Messages message) {
             userNameTextView.setText(message.getUserName()); // Replace with user's name logic
             messageTextView.setText(message.getText());
-            timestampTextView.setText(message.getFormattedTimestamp());
+            timestampTextView.setText(new StringBuilder().append(message.getFormattedTimestamp()).append("\n").append(message.getDate()).toString());
         }
     }
 }
